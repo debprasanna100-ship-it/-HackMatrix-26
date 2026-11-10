@@ -1,0 +1,85 @@
+# TrustLens — full stack: local chain + backend + frontend
+#
+#   docker compose up --build
+#   → frontend  http://localhost:5173
+#   → backend   http://localhost:8000  (API docs at /docs)
+#
+# The one-shot `deploy` service deploys ThreatRegistry to the local chain and
+# writes deployment.localhost.json to a shared volume; the backend reads the
+# contract address from it automatically (TRUSTLENS_DEPLOYMENT_FILE).
+#
+# Optional overrides via .env next to this file:
+#   TRUSTLENS_LLM_API_KEY   — enables AI explanations
+#   TRUSTLENS_DATABASE_URL  — e.g. postgres (compose defaults to SQLite volume)
+
+services:
+  chain:
+    build: ./contracts
+    command: npx hardhat node --hostname 0.0.0.0 --port 8545
+    volumes:
+      - chain-node-modules:/work/node_modules
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8545 >/dev/null 2>&1 || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  deploy:
+    build: ./contracts
+    environment:
+      HARDHAT_CHAIN_URL: http://chain:8545
+    volumes:
+      - chain-node-modules:/work/node_modules
+      - shared:/shared
+    command: ["sh", "-c", "npx hardhat run scripts/deploy.js --network localhost && cp deployment.localhost.json /shared/"]
+    depends_on:
+      chain:
+        condition: service_healthy
+    restart: "no"
+
+  backend:
+    build: ./backend
+    # Provider/threat-intel keys come from backend/.env (the same file the
+    # native backend uses); the environment: block below still wins for the
+    # container-specific wiring (DB path, chain URL, registry auto-discovery).
+    # Optional: a fresh clone without backend/.env still composes (providers
+    # then report unconfigured, exactly like the native backend without .env).
+    env_file:
+      - path: ./backend/.env
+        required: false
+    environment:
+      TRUSTLENS_DATABASE_URL: sqlite:////data/trustlens.db
+      TRUSTLENS_DEPLOYMENT_FILE: /shared/deployment.localhost.json
+      TRUSTLENS_CHAIN_RPC_URL: http://chain:8545
+      # Empty on purpose: the registry address is auto-discovered from the
+      # deployment JSON (a restarted in-memory chain gets a fresh address).
+      TRUSTLENS_REGISTRY_ADDRESS: ""
+      # Hardhat funded TEST account #0 — local chain only, never a real key.
+      TRUSTLENS_CHAIN_PRIVATE_KEY: "${TRUSTLENS_CHAIN_PRIVATE_KEY:-0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80}"
+      TRUSTLENS_RATE_LIMIT_PER_MINUTE: "100"
+      # Optional AI explanations:
+      TRUSTLENS_LLM_API_KEY: "${TRUSTLENS_LLM_API_KEY:-}"
+      TRUSTLENS_LLM_BASE_URL: "${TRUSTLENS_LLM_BASE_URL:-https://api.openai.com/v1}"
+      TRUSTLENS_LLM_MODEL: "${TRUSTLENS_LLM_MODEL:-gpt-4o-mini}"
+    volumes:
+      - trustlens-data:/data
+      - shared:/shared:ro
+    ports:
+      - "8000:8000"
+    depends_on:
+      deploy:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  trustlens-data:
+  shared:
+  chain-node-modules:

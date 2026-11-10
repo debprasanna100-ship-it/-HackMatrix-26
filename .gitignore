@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# Databases
+*.db
+*.sqlite3
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Node (Phase 3+)
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Hardhat (Phase 4+)
+contracts/artifacts/
+contracts/cache/
+contracts/typechain-types/
+
+# Logs
+*.log
+
+# Local snapshot archives (retire the .rar workflow now that git tracks history)
+*.rar
+
+# Test tooling
+.pytest_cache/

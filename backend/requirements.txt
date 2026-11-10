@@ -1,0 +1,23 @@
+fastapi>=0.110,<1
+uvicorn[standard]>=0.29
+httpx>=0.27,<1
+httpcore>=1.0
+dnspython>=2.6
+tldextract>=5.1
+idna>=3.7
+pydantic>=2.7
+pydantic-settings>=2.2
+jsonschema>=4  # imported unconditionally by app/llm/explain.py
+PyJWT>=2.8
+email-validator>=2.0
+SQLAlchemy>=2.0
+psycopg[binary]>=3.1  # PostgreSQL driver for postgresql+psycopg:// URLs (Neon/production)
+cryptography>=42.0
+pyOpenSSL>=24.0
+certifi  # imported directly by app/pipeline/fetcher.py (OpenSSL trust store); previously transitive
+alembic>=1.13
+web3>=7.0
+
+# test / dev
+pytest>=8
+pytest-asyncio>=0.23

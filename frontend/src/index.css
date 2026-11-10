@@ -1,0 +1,287 @@
+@import "tailwindcss";
+
+@theme {
+  --color-secondary-container: #6cf8bb;
+  --color-on-tertiary: #ffffff;
+  --color-secondary-fixed-dim: #4edea3;
+  --color-on-surface: #131b2e;
+  --color-surface-container-low: #f2f3ff;
+  --color-error-container: #ffdad6;
+  --color-danger-red: #EF4444;
+  --color-tertiary-container: #004469;
+  --color-outline: #757682;
+  --color-surface-tint: #4059aa;
+  --color-surface-container-lowest: #ffffff;
+  --color-inverse-on-surface: #eef0ff;
+  --color-surface-canvas: #F8FAFC;
+  --color-secondary: #006c49;
+  --color-surface-card: #FFFFFF;
+  --color-surface-container-highest: #dae2fd;
+  --color-secondary-fixed: #6ffbbe;
+  --color-primary-fixed: #dce1ff;
+  --color-on-primary-fixed: #00164e;
+  --color-safety-amber: #F59E0B;
+  --color-tertiary: #002d48;
+  --color-on-error: #ffffff;
+  --color-on-secondary-fixed-variant: #005236;
+  --color-on-primary: #ffffff;
+  --color-inverse-primary: #b6c4ff;
+  --color-on-secondary-fixed: #002113;
+  --color-tertiary-fixed-dim: #93ccff;
+  --color-on-primary-fixed-variant: #264191;
+  --color-tertiary-fixed: #cce5ff;
+  --color-surface: #faf8ff;
+  --color-surface-container-high: #e2e7ff;
+  --color-on-primary-container: #90a8ff;
+  --color-inverse-surface: #283044;
+  --color-error: #ba1a1a;
+  --color-on-surface-variant: #444651;
+  --color-background: #faf8ff;
+  --color-on-secondary: #ffffff;
+  --color-surface-bright: #faf8ff;
+  --color-on-secondary-container: #00714d;
+  --color-primary-fixed-dim: #b6c4ff;
+  --color-helpline-navy: #0B192C;
+  --color-outline-variant: #c5c5d3;
+  --color-surface-variant: #dae2fd;
+  --color-on-tertiary-container: #56b3f9;
+  --color-surface-dim: #d2d9f4;
+  --color-on-tertiary-fixed: #001d31;
+  --color-border-subtle: #E2E8F0;
+  --color-on-background: #131b2e;
+  --color-on-tertiary-fixed-variant: #004b73;
+  --color-surface-container: #eaedff;
+  --color-on-error-container: #93000a;
+  --color-primary: #00236f;
+  --color-primary-container: #1e3a8a;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Base resets & styles matching Stitch Vigilant Civic Security */
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-surface-canvas, #F8FAFC);
+  color: var(--color-on-surface, #131b2e);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: #dce1ff;
+  color: #00236f;
+}
+
+/* Material Symbols configuration verbatim from Stitch */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.material-symbols-fill,
+[data-weight="fill"] .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+/* =========================================================================
+   STITCH TYPOGRAPHY UTILITIES
+   Directly matching Vigilant Civic Security Design Tokens
+   ========================================================================= */
+
+.font-display {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+}
+.text-display {
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.font-display-mobile {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+}
+.text-display-mobile {
+  font-size: 30px;
+  line-height: 38px;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+}
+
+.font-headline-lg {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+}
+.text-headline-lg {
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+.font-headline-lg-mobile {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+}
+.text-headline-lg-mobile {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+}
+
+.font-headline-md {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+}
+.text-headline-md {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+.font-headline-sm {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+}
+.text-headline-sm {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.font-title-md {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+}
+.text-title-md {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+}
+
+.font-body-lg {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+}
+.text-body-lg {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+.font-body-md {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+}
+.text-body-md {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.font-body-sm {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+}
+.text-body-sm {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.font-label-lg {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+}
+.text-label-lg {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+.font-label-md {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+}
+.text-label-md {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.font-label-sm {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+}
+.text-label-sm {
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+/* =========================================================================
+   STITCH SPACING UTILITIES
+   Exact 8pt rhythm: xs=4px, sm=8px, md=16px, lg=24px, xl=40px
+   ========================================================================= */
+
+.p-space-xs { padding: 0.25rem; }
+.p-space-sm { padding: 0.5rem; }
+.p-space-md { padding: 1rem; }
+.p-space-lg { padding: 1.5rem; }
+.p-space-xl { padding: 2.5rem; }
+
+.py-space-xs { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.py-space-sm { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-space-md { padding-top: 1rem; padding-bottom: 1rem; }
+.py-space-lg { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-space-xl { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+
+.px-space-xs { padding-left: 0.25rem; padding-right: 0.25rem; }
+.px-space-sm { padding-left: 0.5rem; padding-right: 0.5rem; }
+.px-space-md { padding-left: 1rem; padding-right: 1rem; }
+.px-space-lg { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-space-xl { padding-left: 2.5rem; padding-right: 2.5rem; }
+
+.gap-space-xs { gap: 0.25rem; }
+.gap-space-sm { gap: 0.5rem; }
+.gap-space-md { gap: 1rem; }
+.gap-space-lg { gap: 1.5rem; }
+.gap-space-xl { gap: 2.5rem; }
+
+.mb-space-xs { margin-bottom: 0.25rem; }
+.mb-space-sm { margin-bottom: 0.5rem; }
+.mb-space-md { margin-bottom: 1rem; }
+.mb-space-lg { margin-bottom: 1.5rem; }
+.mb-space-xl { margin-bottom: 2.5rem; }
+
+.mt-space-xs { margin-top: 0.25rem; }
+.mt-space-sm { margin-top: 0.5rem; }
+.mt-space-md { margin-top: 1rem; }
+.mt-space-lg { margin-top: 1.5rem; }
+.mt-space-xl { margin-top: 2.5rem; }
+
+.px-margin { padding-left: 2rem; padding-right: 2rem; }
+.px-margin-mobile { padding-left: 1rem; padding-right: 1rem; }
+.gutter { margin-left: 1.5rem; margin-right: 1.5rem; }
+.gutter-mobile { margin-left: 1rem; margin-right: 1rem; }
+
+/* Custom slow spin for radar scanner */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 8s linear infinite;
+}
